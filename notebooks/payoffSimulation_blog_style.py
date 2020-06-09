@@ -174,7 +174,7 @@ def find_interest_rate(paymentDate):
 
 
 import pprint as pp
-pp.pprint(historicInterest)
+# pp.pprint(historicInterest)
 
 
 # To calculate how much I owed after university I need to simulate each passing day's interest (whilst studying) and also add in the instalments arriving from Student Finance England. The function is written such that you can either simulate up to the end of graduation year (August 31st), or up to the start of employment (when you begin paying back the loan), using the ```simEnd``` argument. NB: in my case I was not employed until after the April following graduation, so did not need to build in the rule for this.
@@ -293,33 +293,6 @@ def simulate_lifetime_earnings(grossSalaryPA, N, principal, employment_start, me
     return cumulativeList, salary, payments_towards
 
 
-# ## Simulating Median Graduate Earnings
-# To try out the simulator, I began by using higher education salary data from an incredibly thorough new report [*The impact of undergraduate degree on lifetime earnings*](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/869263/The_impact_of_undergraduate_degrees_on_lifetime_earnings_research_report_ifs_dfe.pdf). For my personal situation I ran the simulation for median male graduate earnings. The code used here is mostly plotting, which I will skip for space.
-
-# In[65]:
-
-
-male_HE = pd.read_csv(os.path.join(current_wd, "..", "data", "real_median_men_HE.csv"),header=None, names = ['Age', 'Earning'])
-male_HE['Age'] = male_HE['Age'].round()
-male_HE = male_HE.groupby(by='Age').mean()
-
-fig = plt.figure(figsize=(16,6))
-ax = fig.add_axes([0.1,0.1,0.9,0.9])
-plt.axhline(y = 0, color = 'r', linestyle = '--')
-sim, sal, payments = simulate_lifetime_earnings(grossSalaryPA = male_HE['Earning'].min(),
-                                    N = 30,
-                                    principal = graduate_amount(simEnd = "employment", employmentStart = "2019-10-07", myPayments = myPayments), 
-                                    employment_start = "2019-10-07", 
-                                    method = "median")
-
-ax.plot(sim, label = "Net value of student loan")
-ax.plot(sal, label = "Salary")
-ax.set_xlabel("Elapsed days")
-ax.set_ylabel("Value")
-plt.legend(loc="best");
-fig.savefig(os.path.join('..','results','median_male_student_loan.png'), dpi=400)
-
-
 # As you can see in the plot above, the median male graduate's salary does not increase fast enough in the early years/over the 30 years to ever overcome the rate of compounding of the loan interest. Thus, the loan's net value spirals upwards, and they never pay it off. At 30 years, the loan will be cancelled. However, there are many confounding variables here - e.g. this is averaged across subjects and university (e.g. [Russell Group](https://russellgroup.ac.uk/about/) and nonRG), which both have very large variance in later life earnings. So this should be looked at purely as an example of the simulation.
 # 
 # # Enter Monte Carlo
@@ -378,13 +351,15 @@ from IPython.display import clear_output
 salary_levels = 6
 np.random.seed(101)
 startingSal = 29000
-sims = 1000000
+sims = 100000
 monte_carlo_increases = pd.DataFrame(np.row_stack([np.random.normal(loc=x, scale=0.1,size=(1,sims)) for x in np.linspace(.1,.4,salary_levels)[::-1]]))
 end_values = []
 total_payments = []
 monte_carlo_increases += 1
 monte_carlo_increases.index += 1
 totalLoan_values = 0
+import time
+start = time.time()
 for column in range(sims):
     clear_output(wait=True)
 #     print(monte_carlo_increases[column])
@@ -396,8 +371,8 @@ for column in range(sims):
                                     increases = monte_carlo_increases[column])
     end_values.append(sim[-1])
     total_payments.append(net_payments)
-    if (column/sims)%5 == 0:
-        print("current progress ", (column/sims)*100, "%")
+    if (100*column/sims)%5 == 0:
+        print("current progress ", column/sims*100, r"% after ", time.time()-start, "seconds")
 #     col = next(cycol)
 #     ax[1].plot(sal, label = "Salary")#, color=col)
 #     ax[0].plot(sim, label = "Net value of Student Loan")#,color=col)
