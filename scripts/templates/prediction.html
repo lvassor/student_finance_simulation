@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<h2>Thank You. Here is the Information You Gave:</h2>
+<table>
+	<tr class="labelfont">
+		<td>Yearly compound interest rate:</td><td>{{session['int_rate']}}%</td>
+	</tr>
+	<tr class="labelfont">
+		<td>Monthly deposits into account:</td><td>{{session['currency']}}{{session['mon_amount']}}</td>
+	</tr>
+	<tr class="labelfont">
+		<td>Principal value at start of compound period:</td><td>{{session['currency']}}{{session['principal']}}</td>
+	</tr>
+	<tr class="labelfont">
+		<td>Time for compounding:</td><td>{{session['time']}}</td>
+	</tr>
+	<tr class="labelfont">
+		<td>Target amount:</td><td>{{session['currency']}}{{session['target']}}</td>
+	</tr>
+</table>
+<h2>Your end value is: {{session['currency']}}{{results}}</h2>
+<img src="data:image/png;base64, {{ url }}">
+
+</html>
