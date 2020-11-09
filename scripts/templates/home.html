@@ -6,39 +6,47 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 </head>
 
-<h2>Please enter your investment parameters below:</h2>
-<form  method="POST">
-    <table>
-        {# This hidden_tag is a CSRF security feature. #}
-        {{ form.hidden_tag() }}
-        <tr>
-            <td>{{ form.int_rate.label(class_='labelfont') }}</td>
-            <td>{{form.int_rate}}</td>
-        </tr>
-        <tr>
-            <td>{{ form.mon_amount.label(class_='labelfont')}}</td>
-            <td>{{form.mon_amount}}</td>
-        </tr>
-        <tr>
-            <td>{{form.principal.label(class_='labelfont')}}</td>
-            <td>{{form.principal}}</td>
-        </tr>
-        <tr>
-            <td>{{form.time.label(class_='labelfont')}}</td>
-            <td>{{form.time}}</td>
-        </tr>
-        <tr>
-            <td>{{form.target.label(class_='labelfont')}}</td>
-            <td>{{form.target}}</td>
-        </tr>
-        <tr>
-            <td>{{form.currency.label(class_='labelfont')}}</td>
-            <td>{{form.currency}}</td>
-        </tr>
-    </table>
-        {{ form.submit() }}
-        
-</form>
+
+<body>
+    <h2>Investment Calculator</h2>
+    <h3>Please enter your investment parameters below:</h3>
+    <!-- <div class="container"></div> -->
+    
+    <!-- <div> -->
+    <form  class="calculator" method="POST">
+        <table>
+            {# This hidden_tag is a CSRF security feature. #}
+            {{ form.hidden_tag() }}
+            <tr>
+                <td>{{ form.int_rate.label(class_='labelfont') }}</td>
+                <td>{{form.int_rate}}</td>
+            </tr>
+            <tr>
+                <td>{{ form.mon_amount.label(class_='labelfont')}}</td>
+                <td>{{form.mon_amount}}</td>
+            </tr>
+            <tr>
+                <td>{{form.principal.label(class_='labelfont')}}</td>
+                <td>{{form.principal}}</td>
+            </tr>
+            <tr>
+                <td>{{form.time.label(class_='labelfont')}}</td>
+                <td>{{form.time}}</td>
+            </tr>
+            <tr>
+                <td>{{form.target.label(class_='labelfont')}}</td>
+                <td>{{form.target}}</td>
+            </tr>
+            <tr>
+                <td>{{form.currency.label(class_='labelfont')}}</td>
+                <td>{{form.currency}}</td>
+            </tr>
+        </table>
+            {{ form.submit() }}
+            
+    </form>
+<!-- </div> -->
+</body>
 <!-- <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Dropdown button

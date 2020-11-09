@@ -36,7 +36,7 @@ class FinanceForm(FlaskForm):
     int_rate = TextField("Interest Rate %", id='myfont')
     mon_amount = TextField("Monthly Deposit")
     principal = TextField("Principal")
-    time = TextField("Time")
+    time = TextField("Time (years)")
     target = TextField("Target")
     currency = TextField("Currency")
 
@@ -81,15 +81,28 @@ def prediction():
     # fig,ax=plt.subplots(figsize=(6,6))
     f = plt.figure()
     # Define colors
-    colors = ((0.0, 0.0, 0.0), (1.0, 0.99, 0.56))
+    colors = ((0.016, 0.102, 0.196), (0.298, 0.686, 0.314))
     cmap = LinearSegmentedColormap.from_list('Custom', colors, len(colors))
-    ax = sns.heatmap(binary, cmap=cmap)
+    ax = sns.heatmap(binary,linewidths=0.3, linecolor='#DFDDDD', cmap=cmap)
+    
+    
+    sns.set(rc={'figure.facecolor':'#041A32'})
+    ax.set_xlabel("Monthly deposit", color="white")
+    ax.set_ylabel("Principal", color="white")
+    sns.despine()
+    ax.spines['bottom'].set_linewidth(1)
+    ax.spines['bottom'].set_color('white')
+    ax.spines['left'].set_linewidth(1)
+    ax.spines['left'].set_color('white')
 
+    ax.tick_params(axis='y', which='both', colors='white', width=5)
+    ax.tick_params(axis='x', which='both', colors='white', width=5)
 
     # Set the colorbar labels
     colorbar = ax.collections[0].colorbar
     colorbar.set_ticks([0.25,0.75])
-    colorbar.set_ticklabels(['0', '1'])
+    colorbar.set_ticklabels(['Miss target', 'Meet target'])
+    colorbar.ax.tick_params(colors="white")
     # plt.savefig('myplot.png')
     canvas = FigureCanvas(f)
     canvas.print_png(output)

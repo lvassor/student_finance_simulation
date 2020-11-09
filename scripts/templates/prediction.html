@@ -4,25 +4,35 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 </head>
 
-<h2>Thank You. Here is the Information You Gave:</h2>
-<table>
-	<tr class="labelfont">
-		<td>Yearly compound interest rate:</td><td>{{session['int_rate']}}%</td>
+<body>
+<h2>ROI calculated. </h2>
+
+<h3>Here are the parameters you gave:</h3>
+</br>
+<table class="prediction" align="center">
+	<tr class="prediction">
+		<th class="prediction">Parameter</th>
+		<th class="prediction">Value</th>
 	</tr>
-	<tr class="labelfont">
-		<td>Monthly deposits into account:</td><td>{{session['currency']}}{{session['mon_amount']}}</td>
+	<tr class="prediction">
+		<td class="prediction">Yearly compound interest</td><td>{{session['int_rate']}}%</td>
 	</tr>
-	<tr class="labelfont">
-		<td>Principal value at start of compound period:</td><td>{{session['currency']}}{{session['principal']}}</td>
+	<tr class="prediction">
+		<td class="prediction">Monthly deposits into account</td><td>{{session['currency']}}{{session['mon_amount']}}</td>
 	</tr>
-	<tr class="labelfont">
-		<td>Time for compounding:</td><td>{{session['time']}}</td>
+	<tr class="prediction">
+		<td class="prediction">Principal value at start of compound period</td><td>{{session['currency']}}{{session['principal']}}</td>
 	</tr>
-	<tr class="labelfont">
-		<td>Target amount:</td><td>{{session['currency']}}{{session['target']}}</td>
+	<tr class="prediction">
+		<td class="prediction">Time for compounding</td><td>{{session['time']}}</td>
+	</tr>
+	<tr class="prediction">
+		<td class="prediction">Target amount</td><td>{{session['currency']}}{{session['target']}}</td>
 	</tr>
 </table>
-<h2>Your end value is: {{session['currency']}}{{results}}</h2>
-<img src="data:image/png;base64, {{ url }}">
+</br></br>
+<h3>Your end value is: {{session['currency']}}{{results}}</h3></br>
+</body>
+<img src="data:image/png;base64, {{ url }}" width="600px">
 
 </html>

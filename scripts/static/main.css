@@ -1,6 +1,62 @@
-h2 {font-family: Verdana, Geneva, Tahoma, sans-serif; color: green; font-size: medium;}
-.labelfont {font-family: Verdana, Geneva, Tahoma, sans-serif; color: green}
-/* tr.green td{color:#4CAF50} */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300,400,500,600,700,800,900&display=swap');
+h3,body,form
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+}
+
+
+h3 {
+    font-size: medium;
+}
+
+body {
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    padding: 80px 0;
+    min-height: 100vh;
+    background: #041A32;
+    text-align: center;
+    vertical-align: middle;
+    
+}
+form {
+    display: inline-block;
+    text-align: left;
+}
+td.prediction {
+    padding: 10px;
+    text-align: left;
+}
+
+th.prediction {
+    padding: 10px;
+    background-color: #4CAF50;
+}
+table.prediction {
+    border-collapse:separate;
+    border:solid white 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+
+tr.prediction:nth-child(odd) {
+background-color:white;
+color: #041A32;
+}
+
+tr.prediction:nth-child(even) {
+    background-color:rgb(223, 221, 221);
+    color: #041A32;
+    }
+/* .parameter_table{
+    padding: 20px 0;
+    text-align: center;
+} */
+
 input[type=text], select {
     width: 100%;
     padding: 12px 20px;
@@ -24,7 +80,7 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100px
+    width: 373px
 }
   
 input[type=submit]:hover {
@@ -33,6 +89,6 @@ input[type=submit]:hover {
   
 div {
     border-radius: 5px;
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     padding: 20px;
 }
